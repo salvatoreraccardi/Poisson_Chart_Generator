@@ -17,10 +17,11 @@ formatTitle = workbook.add_format({'bold': 1, 'italic': 1, 'align': 'center', 'b
 formatRef = workbook.add_format({'bold': 1, 'align': 'center', 'bg_color': 'yellow', 'bottom': 1, 'left': 1, 'right': 1})
 formatData = workbook.add_format({'align': 'center', 'left': 1, 'right': 1})
 formatEndDataset = workbook.add_format({'bold': 1, 'italic': 1, 'align': 'center', 'bg_color': 'red', 'align': 'center','valign': 'vcenter', 'top': 1, 'bottom': 1, 'left': 1, 'right': 1})
+formatBorderTop = workbook.add_format({'top': 1})
 
 # Parametri di Poisson
-poissonN = 33
-poissonMi = 3
+poissonN = 10
+poissonMi = 8
 
 # Adattamento parametri
 array_offset = 1
@@ -45,6 +46,7 @@ worksheet.write('A2', 'N', formatData)
 worksheet.write('B2', poissonN, formatData)
 worksheet.write('A3', 'Mi', formatData)
 worksheet.write('B3', poissonMi, formatData)
+worksheet.merge_range('A4:B4', ' ', formatBorderTop)
 worksheet.set_column('A:B', 16)
 
 # Dataset - xlsxwriter settings
@@ -61,8 +63,8 @@ worksheet.set_column('E:F', 15)
 chart5 = workbook.add_chart({'type': 'scatter',
                              'subtype': 'smooth'})
 
-test1 = '=Poisson!$E$3:$E$' + str(poissonK)
-test2 = '=Poisson!$F$3:$F$' + str(poissonK)
+test1 = '=Poisson!$E$3:$E$' + str(poissonK + 2)
+test2 = '=Poisson!$F$3:$F$' + str(poissonK + 2)
 
 chart5.add_series({
     'name':       '=Poisson!$F$2',
@@ -72,7 +74,7 @@ chart5.add_series({
 
 chart5.set_title ({'name': 'Modello di Poisson - P(X)'})
 chart5.set_style(15)
-chart5.set_size({'width': 920, 'height': 576})
+chart5.set_size({'width': 896, 'height': 440})
 
 worksheet.insert_chart('I2', chart5)
 
